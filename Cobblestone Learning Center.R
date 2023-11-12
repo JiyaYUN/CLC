@@ -11,7 +11,7 @@ StudentInfo <- StudentInfo[,1:2]
 # Combine district columns
 Mark <- merge(Mark, StudentInfo, by="student_id")
 
-calculate_differences <- function(data) {
+MarkDiff <- function(data) {
      data <- data %>%
           arrange(student_id, date) %>%
           mutate(
@@ -24,7 +24,7 @@ calculate_differences <- function(data) {
      return(data)
 }
 
-Mark_diff <- calculate_differences(Mark)
+Mark <- MarkDiff(Mark)
 
 # Sub-district student info
 Beaveton <- StudentInfo[StudentInfo$district == "Beaveton", ]
