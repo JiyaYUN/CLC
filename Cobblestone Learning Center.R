@@ -31,7 +31,9 @@ calculate_differences <- function(data) {
             diff_reading = ifelse(lag(student_id) == student_id, score_reading - lag(score_reading), NA),
             diff_writing = ifelse(lag(student_id) == student_id, score_writing - lag(score_writing), NA),
             diff_mathNoCalc = ifelse(lag(student_id) == student_id, score_mathNoCalc - lag(score_mathNoCalc), NA),
-            diff_mathCalc = ifelse(lag(student_id) == student_id, score_mathCalc - lag(score_mathCalc), NA)
+            diff_mathCalc = ifelse(lag(student_id) == student_id, score_mathCalc - lag(score_mathCalc), NA),
+            diff_total_score = diff_reading+diff_writing+diff_mathNoCalc+diff_mathCalc
+
         )
     return(data)
 }
