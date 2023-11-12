@@ -35,3 +35,5 @@ Wilsonville <- StudentInfo[StudentInfo$district == "Wilsonville", ]
 Camas <- StudentInfo[StudentInfo$district == "Camas", ]
 Riverdale <- StudentInfo[StudentInfo$district == "Riverdale", ]
 Ridgefield <- StudentInfo[StudentInfo$district == "Ridgefield", ]
+
+skills <- subset(MarkDiff, MarkDIff$program=="skills", TRUE)
