@@ -1,3 +1,4 @@
+data <- evals_data
 calculate_differences <- function(data) {
     data <- data %>%
         arrange(student_id, date) %>%
