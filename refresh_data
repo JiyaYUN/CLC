@@ -1,0 +1,18 @@
+library(dplyr)
+library(tidyr)
+result <- E_data %>%
+    arrange(student_id, date) %>%
+    group_by(student_id) %>%
+    filter(program == "refresh" | (lead(program == "refresh") & !program == "refresh")) %>%
+    select(student_id, date, program, location, score_reading, score_writing, score_mathNoCalc, score_mathCalc, Total) %>%
+    mutate(refresh_score_change = ifelse(student_id == lag(student_id), Total - lag(Total), NA)) %>%
+    ungroup() %>%  
+    drop_na()  
+
+print(result)
+result_filtered <- result %>% filter(program == "refresh")
+result_center <- result_filtered %>% filter(location == "center")
+result_online <- result_filtered %>% filter(location == "online")
+
+write.csv(result_center, "result_center.csv", row.names = FALSE)
+write.csv(result_online, "result_online.csv", row.names = FALSE)
