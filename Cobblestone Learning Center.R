@@ -37,3 +37,5 @@ Riverdale <- StudentInfo[StudentInfo$district == "Riverdale", ]
 Ridgefield <- StudentInfo[StudentInfo$district == "Ridgefield", ]
 
 skills <- subset(MarkDiff, MarkDIff$program=="skills", TRUE)
+refresh <- subset(MarkDiff, MarkDIff$program=="refresh", TRUE)
+
