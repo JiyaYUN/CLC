@@ -7,10 +7,24 @@ StudentInfo <- read.csv("D:/Simon.UR/Fall B/Analytics Design and Application/stu
 
 # Data cleaning
 StudentInfo <- StudentInfo[,1:2]
+Mark$date <- as.Date(Mark$date, format = "%m/%d/%Y")
 
 # Combine district columns
 Mark <- merge(Mark, StudentInfo, by="student_id")
 
+#Total Score
+Mark$TotalScore <- Mark$score_reading + Mark$score_writing + Mark$score_mathNoCalc + Mark$score_mathCalc
+
+#Intake
+Intake <- Mark[Mark$program == "intake",]
+summary(Intake)
+
+hist(Intake$TotalScore, main = "Histogram of TotalScore", xlab = "TotalScore")
+boxplot(Intake$TotalScore, main = "Boxplot of TotalScore", ylab = "TotalScore")
+Intake <- Intake[!(Intake$TotalScore %in% boxplot.stats(Intake$TotalScore)$out), ]
+write.csv(Intake, "D:/Simon.UR/Fall B/Analytics Design and Application/Intake.csv")
+
+#Mark difference
 MarkDiff <- function(data) {
      data <- data %>%
           arrange(student_id, date) %>%
@@ -25,6 +39,12 @@ MarkDiff <- function(data) {
 }
 
 Mark <- MarkDiff(Mark)
+Mark <- Mark[complete.cases(Mark),]
+
+boxplot(Mark$diff_total_score, main = "Boxplot of TotalScore", ylab = "DiffTotalScore")
+Mark <- Mark[!(Mark$diff_total_score %in% boxplot.stats(Mark$diff_total_score)$out), ]
+write.csv(Mark, "D:/Simon.UR/Fall B/Analytics Design and Application/MarkDiffTotal.csv")
+
 
 # Sub-district student info
 Beaveton <- StudentInfo[StudentInfo$district == "Beaveton", ]
@@ -39,3 +59,4 @@ Ridgefield <- StudentInfo[StudentInfo$district == "Ridgefield", ]
 skills <- subset(MarkDiff, MarkDIff$program=="skills", TRUE)
 refresh <- subset(MarkDiff, MarkDIff$program=="refresh", TRUE)
 
+unique(Mark$program)
