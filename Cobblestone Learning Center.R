@@ -60,3 +60,14 @@ skills <- subset(MarkDiff, MarkDIff$program=="skills", TRUE)
 refresh <- subset(MarkDiff, MarkDIff$program=="refresh", TRUE)
 
 unique(Mark$program)
+
+
+
+refresh <- subset(Mark, program =='refresh')
+refresh <- refresh %>%
+    mutate(location = ifelse(location == "online", 1, 0))
+
+write.csv(refresh, 'path_to_your_new_evals_data.csv', row.names = FALSE)
+
+regression_refresh <- lm(location~diff_total_score, data= refresh)
+summary(regression_refresh)
