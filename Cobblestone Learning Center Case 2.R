@@ -1,9 +1,8 @@
 remove(list = ls())
-# Import Databases
+
+# Load Data
 Mark <- read.csv("D:/Simon.UR/Fall B/Analytics Design and Application/evals_experiment.csv")
-
 Student <- read.csv("D:/Simon.UR/Fall B/Analytics Design and Application/students_experiment.csv")
-
 Mark <- merge(Mark, Student, by="student_id")
 
 summary(Mark)
@@ -47,4 +46,8 @@ Mark <- MarkDiff(Mark)
 Mark <- Mark %>%
      filter(program != "intake")
 
-summary(lm())
+
+Mark$EducationalProgram <- factor(Mark$EducationalProgram)
+Mark$EducationalProgram <- relevel(Mark$EducationalProgram, ref = "Current")
+summary(lm(score_total ~ EducationalProgram, data = Mark))
+
