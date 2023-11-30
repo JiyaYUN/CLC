@@ -46,7 +46,8 @@ Mark <- MarkDiff(Mark)
 Mark <- Mark %>%
      filter(program != "intake")
 
-summary(aov(score_total ~ EducationalProgram, data = Mark))
+anova_result <- aov(score_total ~ EducationalProgram, data = Mark)
+TukeyHSD(anova_result)
 
 boxplot(score_total ~ EducationalProgram, data = Mark,
         col = c("lightgreen", "lightblue", "orange", "red"),
