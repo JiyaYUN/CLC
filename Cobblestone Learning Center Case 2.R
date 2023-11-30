@@ -46,8 +46,29 @@ Mark <- MarkDiff(Mark)
 Mark <- Mark %>%
      filter(program != "intake")
 
+summary(aov(score_total ~ EducationalProgram, data = Mark))
+
+boxplot(score_total ~ EducationalProgram, data = Mark,
+        col = c("lightgreen", "lightblue", "orange", "red"),
+        main = "ANOVA Boxplot of Diffscore in 3 Educational Program")
+
+
 
 Mark$EducationalProgram <- factor(Mark$EducationalProgram)
 Mark$EducationalProgram <- relevel(Mark$EducationalProgram, ref = "Current")
+
+#total score difference
 summary(lm(score_total ~ EducationalProgram, data = Mark))
+
+#reading score difference
+summary(lm(score_reading ~ EducationalProgram, data = Mark))
+
+#writing score difference
+summary(lm(score_writing ~ EducationalProgram, data = Mark))
+
+#mathNoCalc  score difference
+summary(lm(score_mathNoCalc ~ EducationalProgram, data = Mark))
+
+#mathCalc score difference
+summary(lm(score_mathCalc ~ EducationalProgram, data = Mark))
 
